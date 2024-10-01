@@ -8,7 +8,9 @@ import { TwitterAppContext } from "./Context.js";
 
 function App() {
   const [tweets, setTweets] = useState(defaultTweets);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
 
   const contextValues = {
     tweets,
@@ -19,6 +21,7 @@ function App() {
   };
 
   useEffect(() => {
+    localStorage.setItem("theme", theme);
     theme === "light"
       ? (document.body.style.backgroundColor = "white")
       : (document.body.style.backgroundColor = "black");
