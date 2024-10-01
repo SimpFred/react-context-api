@@ -1,27 +1,38 @@
-import { useEffect, useState } from 'react'
-import Header from './components/Header'
-import Tweets from './components/Tweets'
-import RightSide from './components/RightSide'
-import defaultTweets from './assets/data/tweets.js'
-import user from './assets/data/user.js'
+import { useEffect, useState } from "react";
+import Header from "./components/Header";
+import Tweets from "./components/Tweets";
+import RightSide from "./components/RightSide";
+import defaultTweets from "./assets/data/tweets.js";
+import user from "./assets/data/user.js";
+import { DataContext } from "./Context.js";
 
 function App() {
-    const [tweets, setTweets] = useState(defaultTweets)
-    const [theme, setTheme] = useState('light');
+  const [tweets, setTweets] = useState(defaultTweets);
+  const [theme, setTheme] = useState("light");
 
-    useEffect(() => {
-        theme === 'light'
-          ? document.body.style.backgroundColor = 'white'
-          : document.body.style.backgroundColor = 'black'
-    }, [theme])
+  const contextValues = {
+    tweets,
+    setTweets,
+    theme,
+    setTheme,
+    user,
+  };
 
-    return (
-        <div className="container">
-            <Header user={user} theme={theme} setTheme={setTheme} />
-            <Tweets tweets={tweets} setTweets={setTweets} user={user} theme={theme}  />
-            <RightSide theme={theme} />
-        </div>
-    )
+  useEffect(() => {
+    theme === "light"
+      ? (document.body.style.backgroundColor = "white")
+      : (document.body.style.backgroundColor = "black");
+  }, [theme]);
+
+  return (
+    <div className="container">
+      <DataContext.Provider value={contextValues}>
+        <Header />
+        <Tweets />
+        <RightSide />
+      </DataContext.Provider>
+    </div>
+  );
 }
 
 export { App };
