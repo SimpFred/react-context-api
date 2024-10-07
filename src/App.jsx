@@ -4,7 +4,7 @@ import Tweets from "./components/Tweets";
 import RightSide from "./components/RightSide";
 import defaultTweets from "./assets/data/tweets.js";
 import user from "./assets/data/user.js";
-import { TwitterAppContext } from "./Context.js";
+import { TwitterAppContext } from "./context.js";
 
 function App() {
   const [tweets, setTweets] = useState(defaultTweets);
